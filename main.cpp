@@ -83,6 +83,52 @@ int main()
       }
       cout << endl;
     }
+
+    // Поиск эльфа по имени и подсчет соседей
+    string searchName;
+    cout << "enter elf's name to search:";
+    cin >> searchName;
+
+    int neighborCount = 0;
+    for(Branch* tree:trees)
+    {
+       for(Branch* bigBranch:tree->children)
+       {
+          for(Branch* midBranch:bigBranch->children)
+          {
+            for (Elf* elf : midBranch->elves)
+            {
+               if (elf->name == searchName)
+               {
+                 for (Branch* neighborMidBranch : bigBranch->children) 
+                 {
+                    if (neighborMidBranch != midBranch)
+                    {
+                       neighborCount += neighborMidBranch->elves.size();
+                    
+                                                                    }
+                                                               }                                                 
+                                                  break;
+                                               }      
+                                          }
+                                    }   
+                               }
+                       }   
+                
+     std::cout << "Total neighbors for " << searchName << ": " << neighborCount << std::endl;
     
+     // Освобождаем память
+    for (Branch* tree : trees) {
+        for (Branch* bigBranch : tree->children) {
+            for (Branch* midBranch : bigBranch->children) {
+                for (Elf* elf : midBranch->elves) {
+                    delete elf;
+                }
+                delete midBranch;
+            }
+            delete bigBranch;
+        }
+        delete tree;
+    }  
     return 0;  
  }
