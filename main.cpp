@@ -61,7 +61,7 @@ int main()
         }
     }
 
-      // Заселяем дома эльфами
+    // Заселяем дома эльфами
 int count = 0;
 for (Branch* tree : trees) {
     cout << "tree: " << tree->name << endl;
