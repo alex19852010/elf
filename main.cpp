@@ -140,6 +140,7 @@ for (Branch* tree : trees) {
             delete bigBranch;
         }
         delete tree;
+        
     }  
     return 0;  
  
