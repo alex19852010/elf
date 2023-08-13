@@ -1,10 +1,4 @@
 #include <iostream>
-#include <vector>
-#include <cassert>
-#include <string>
-using namespace std;
-
-#include <iostream>
 #include <string>
 #include <vector>
 #include <cstdlib>
@@ -67,7 +61,8 @@ for (Branch* tree : trees) {
     cout << "tree: " << tree->name << endl;
 
     for (Branch* bigBranch : tree->children) {
-        cout << "big branch: " << bigBranch->name << endl;
+        cout << "big branch: " << bigBranch->name << "  ";
+        
 
         // Заселение на большие ветки
         count++;
@@ -78,10 +73,11 @@ for (Branch* tree : trees) {
             Elf* elf = new Elf();
             elf->name = elfName;
             bigBranch->elves.push_back(elf);
+            
         }
 
         for (Branch* midBranch : bigBranch->children) {
-            cout << "midl branch: " << midBranch->name << endl;
+            cout << "midl branch: " << midBranch->name << " ";
 
             // Заселение на средние ветки
             count++;
@@ -94,11 +90,12 @@ for (Branch* tree : trees) {
                 midBranch->elves.push_back(elf);
             }
         }
+        cout << endl;
     }
     cout << endl;
 }
 
-  // Поиск эльфа по имени и подсчет соседей
+   // Поиск эльфа по имени и подсчет соседей
    string searchName;
 cout << "Enter elf's name to search: ";
 cin >> searchName;
@@ -106,6 +103,11 @@ cin >> searchName;
 int neighborCount = 0;
 for (Branch* tree : trees) {
     for (Branch* bigBranch : tree->children) {
+      for (Elf* elf : bigBranch->elves) {
+          if (elf->name == searchName) {
+            neighborCount = bigBranch->children.size();
+            break;
+          }
         for (Branch* midBranch : bigBranch->children) {
             for (Elf* elf : midBranch->elves) {
                 if (elf->name == searchName) {
@@ -125,7 +127,8 @@ for (Branch* tree : trees) {
         }
     }
 }
-                
+}
+             
      std::cout << "Total neighbors for " << searchName << ": " << neighborCount << std::endl;
     
      // Освобождаем память
@@ -142,6 +145,8 @@ for (Branch* tree : trees) {
         delete tree;
         
     }  
+
+    
     return 0;  
  
    
