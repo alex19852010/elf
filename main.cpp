@@ -1,4 +1,10 @@
 #include <iostream>
+#include <vector>
+#include <cassert>
+#include <string>
+using namespace std;
+
+#include <iostream>
 #include <string>
 #include <vector>
 #include <cstdlib>
@@ -29,7 +35,7 @@ class Branch
 
 int main()
 {
-    srand(time(nullptr));
+ srand(time(nullptr));
 
     vector <Branch*> trees;
 
@@ -55,65 +61,70 @@ int main()
         }
     }
 
-    // Заселяем дома эльфами
-    int count = 0;
-    for(Branch* tree:trees)
-    {
-      cout << "tree: " << tree->name << endl;
+      // Заселяем дома эльфами
+int count = 0;
+for (Branch* tree : trees) {
+    cout << "tree: " << tree->name << endl;
 
-      for(Branch* bigBranch:tree->children)
-      {
+    for (Branch* bigBranch : tree->children) {
         cout << "big branch: " << bigBranch->name << endl;
 
-        for(Branch* midBranch:bigBranch->children)
-        {
-            cout << "midl branch: " << midBranch->name << "  ";
-            count ++;
-            string elfName = "elf";
-            elfName += to_string(count);
+        // Заселение на большие ветки
+        count++;
+        string elfName = "elf" + to_string(count);
+        cout << "the elf's name is: " << elfName << endl;
+
+        if (elfName != "None") {
+            Elf* elf = new Elf();
+            elf->name = elfName;
+            bigBranch->elves.push_back(elf);
+        }
+
+        for (Branch* midBranch : bigBranch->children) {
+            cout << "midl branch: " << midBranch->name << endl;
+
+            // Заселение на средние ветки
+            count++;
+            elfName = "elf" + to_string(count);
             cout << "the elf's name is: " << elfName << endl;
 
-            if(elfName != "None")
-            {
+            if (elfName != "None") {
                 Elf* elf = new Elf();
                 elf->name = elfName;
                 midBranch->elves.push_back(elf);
             }
         }
-      }
-      cout << endl;
     }
+    cout << endl;
+}
 
-    // Поиск эльфа по имени и подсчет соседей
-    string searchName;
-    cout << "enter elf's name to search:";
-    cin >> searchName;
+  // Поиск эльфа по имени и подсчет соседей
+   string searchName;
+cout << "Enter elf's name to search: ";
+cin >> searchName;
 
-    int neighborCount = 0;
-    for(Branch* tree:trees)
-    {
-       for(Branch* bigBranch:tree->children)
-       {
-          for(Branch* midBranch:bigBranch->children)
-          {
-            for (Elf* elf : midBranch->elves)
-            {
-               if (elf->name == searchName)
-               {
-                 for (Branch* neighborMidBranch : bigBranch->children) 
-                 {
-                    if (neighborMidBranch != midBranch)
-                    {
-                       neighborCount += neighborMidBranch->elves.size();
-                    
-                                                                    }
-                                                               }                                                 
-                                                  break;
-                                               }      
-                                          }
-                                    }   
-                               }
-                       }   
+int neighborCount = 0;
+for (Branch* tree : trees) {
+    for (Branch* bigBranch : tree->children) {
+        for (Branch* midBranch : bigBranch->children) {
+            for (Elf* elf : midBranch->elves) {
+                if (elf->name == searchName) {
+                    // Подсчет соседей на средних ветках
+                    for (Branch* neighborMidBranch : bigBranch->children) {
+                        if (neighborMidBranch != midBranch) {
+                            neighborCount += neighborMidBranch->elves.size();
+                        }
+                    }
+                    // Подсчет соседей на больших ветках
+                    for (Elf* elf : bigBranch->elves) {
+                        neighborCount++;
+                    }
+                    break;
+                }
+            }
+        }
+    }
+}
                 
      std::cout << "Total neighbors for " << searchName << ": " << neighborCount << std::endl;
     
@@ -131,4 +142,6 @@ int main()
         delete tree;
     }  
     return 0;  
- }
+ 
+   
+}
