@@ -109,8 +109,6 @@ int main()
         {
             if (bigBranch->elves.name == searchName)
             {
-                // neighborCount = bigBranch->children.size();
-                // break;
                  for (Branch* midBranch : bigBranch->children)
                     {
                         if(midBranch->elves.name != "")
@@ -148,7 +146,7 @@ int main()
             delete bigBranch;
         }
         delete tree;
-        
+
     }
 
 
