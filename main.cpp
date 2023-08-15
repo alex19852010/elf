@@ -148,6 +148,7 @@ int main()
             delete bigBranch;
         }
         delete tree;
+        
     }
 
 
