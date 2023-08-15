@@ -66,7 +66,7 @@ int main()
 
             // Заселение на большие ветки
             count++;
-            string elfName = "elf" + to_string(count);
+            string elfName = rand() % 5 ? "elf" + to_string(count) : "None";
             cout << "the elf's name is: " << elfName << endl;
 
             if (elfName != "None")
@@ -82,7 +82,7 @@ int main()
 
                 // Заселение на средние ветки
                 count++;
-                elfName = "elf" + to_string(count);
+                elfName = rand() % 5 ? "elf" + to_string(count) : "None";
                 cout << "the elf's name is: " << elfName << endl;
 
                 if (elfName != "None")
@@ -98,7 +98,7 @@ int main()
     }
 
     // Поиск эльфа по имени и подсчет соседей
-    string searchName;
+       string searchName;
     cout << "Enter elf's name to search: ";
     cin >> searchName;
 
@@ -131,7 +131,6 @@ int main()
             }
         }
     }
-
     cout << "Total neighbors for " << searchName << ": " << neighborCount << endl;
 
     // Освобождаем память
